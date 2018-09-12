@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <!--
+        Inclusion de la bibliothèque Leaflet et sa feuille de style.
+        L'include du js pourrait aussi être fait a la fin du <body>
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+    <script src="js/Ajax.js"></script>
+    <script src="js/Map.js"></script>
+    <!-- Une feuille de style éventuel -->
+
+    <title>Leaflet</title>
+  </head>
+
+  <body>
+    <!-- Le conteneur de notre carte (avec une contrainte CSS pour la taille -->
+    <div id="macarte" style="width:545px; height:490px"></div>
+
+    <script>
+      Ajax.get('api/get-info-map.php').then((res) => {
+        const map = new Map(L).createMap(46.3630104, 2.9846608, 6, res.data)
+      })
+    </script>
+  </body>
+</html>
