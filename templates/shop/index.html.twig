@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<!-- Ici, nous allons récupérer pour afficher la carte depuis une autre page.
+<!-- Ici, nous allons récupérer pour afficher la carte depuis une autre shop.
   ================================================================= -->
 
 <!-- Le conteneur de notre carte (avec une contrainte CSS pour la taille -->
 <div id="macarte" style="width:1560px; height:400px"></div>
 
 <script>
-    //Ajax.get('/').then((res) => {
-        const map = new Map(L).createMap(46.3630104, 2.9846608, 6, /*res.data*/)
-    //})
+    Ajax.get('/shops').then((res) => {
+        console.log(res.data)
+        const map = new Map(L).createMap(46.3630104, 2.9846608, 6, res.data)
+    })
 </script>
 
 <!-- 3e range partie recherche ========================================
