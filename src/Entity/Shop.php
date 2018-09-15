@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
+use ReflectionClass;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShopRepository")
  */
-class Shop
+class Shop implements JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -163,4 +165,27 @@ class Shop
 
 		return $this;
 	}
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @return string[]
+     * @throws \ReflectionException
+     */
+    public function jsonSerialize()
+    {
+        $class      = new ReflectionClass($this);
+        $properties = $class->getProperties();
+        $results    = [];
+        foreach ($properties as $property) {
+            $propertyName = $property->getName();
+            // Build getter method of the property
+            $getter = 'get' . join(
+                '', array_map('ucfirst', explode('_', $propertyName))
+            );
+            if (method_exists($this, $getter)) {
+                $results[$property->getName()] = $this->$getter();
+            }
+        }
+        return $results;
+    }
 }

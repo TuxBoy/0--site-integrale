@@ -14,8 +14,7 @@ class Map {
     this.markers = this.L.markerClusterGroup()
 
     positions.forEach((pos) => {
-      const [x, y] = pos
-      this.addMarker(x, y)
+      this.addMarker(pos.latitude, pos.longitude)
     })
   }
 

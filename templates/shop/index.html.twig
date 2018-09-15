@@ -8,9 +8,8 @@
 <div id="macarte" style="width:1560px; height:400px"></div>
 
 <script>
-    Ajax.get('/shops').then((res) => {
-        console.log(res.data)
-        const map = new Map(L).createMap(46.3630104, 2.9846608, 6, res.data)
+    Ajax.get('/shops').then((shops) => {
+        const map = new Map(L).createMap(46.3630104, 2.9846608, 6, shops)
     })
 </script>
 
