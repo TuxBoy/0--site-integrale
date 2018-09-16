@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% form_theme formShop 'bootstrap_4_layout.html.twig' %}
+
+{% block content %}
+
+    <h1>Ajouter un commerce</h1>
+
+    {{ form_start(formShop) }}
+
+    {{ form_widget(formShop) }}
+
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+    {{ form_end(formShop) }}
+
+{% endblock %}

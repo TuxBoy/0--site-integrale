@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\Constraints as ShopAssert;
+
 use ReflectionClass;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShopRepository")
  */
-class Shop implements JsonSerializable
+class Shop implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -20,6 +22,7 @@ class Shop implements JsonSerializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -30,6 +33,7 @@ class Shop implements JsonSerializable
 
     /**
      * @ORM\Column(type="string")
+     * @ShopAssert\ConstrainsPostalcode()
      */
     private $postal_code;
 
@@ -57,6 +61,14 @@ class Shop implements JsonSerializable
      * @ORM\Column(type="float")
      */
     private $longitude;
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getStreet() . ', ' . $this->getPostalCode() . ' ' . $this->getCity() . ', France';
+    }
 
     public function getId(): ?int
     {
@@ -128,7 +140,7 @@ class Shop implements JsonSerializable
         return $this->latitude;
     }
 
-    public function setLatitude(float $latitude): self
+    public function setLatitude(?float $latitude): self
     {
         $this->latitude = $latitude;
 
@@ -140,7 +152,7 @@ class Shop implements JsonSerializable
         return $this->longitude;
     }
 
-    public function setLongitude(float $longitude): self
+    public function setLongitude(?float $longitude): self
     {
         $this->longitude = $longitude;
 
