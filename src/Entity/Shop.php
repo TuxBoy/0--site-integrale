@@ -43,6 +43,12 @@ class Shop implements \JsonSerializable
     private $city;
 
     /**
+     * @ORM\Column(type="string")
+     * @Assert\Country()
+     */
+    private $country;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
@@ -67,7 +73,7 @@ class Shop implements \JsonSerializable
      */
     public function __toString(): string
     {
-        return $this->getStreet() . ', ' . $this->getPostalCode() . ' ' . $this->getCity() . ', France';
+        return $this->getStreet() . ', ' . $this->getPostalCode() . ' ' . $this->getCity() . ', ' . $this->getCountry();
     }
 
     public function getId(): ?int
@@ -199,5 +205,24 @@ class Shop implements \JsonSerializable
             }
         }
         return $results;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     * @return Shop
+     */
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
     }
 }

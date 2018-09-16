@@ -8,6 +8,7 @@ use App\Service\GeocoderService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,8 @@ class ShopController extends AbstractController
 {
 
 	/**
-	 * @Route("/shops", name="shops", methods={"GET"})
+	 * @Route("/shop/api", name="shops_api", methods={"GET"})
+     *
 	 * @param ShopRepository $shopRepository
 	 * @return JsonResponse
 	 */
@@ -25,6 +27,17 @@ class ShopController extends AbstractController
 	{
 		return new JsonResponse($shopRepository->findAll(), JsonResponse::HTTP_OK);
 	}
+
+    /**
+     * @Route("/admin/shops", name="shops")
+     *
+     * @param ShopRepository $shopRepository
+     * @return Response
+     */
+	public function index(ShopRepository $shopRepository): Response
+    {
+        return $this->render('shop/admin/index.html.twig', ['shops' => $shopRepository->findAll()]);
+    }
 
     /**
      * @Route("/shop/new", name="shops_add")
@@ -50,7 +63,23 @@ class ShopController extends AbstractController
 
             //$this->redirectToRoute('home');
         }
-        return $this->render('shop/add.html.twig', ['formShop' => $form->createView()]);
+        return $this->render('shop/add.html.twig', [
+            'formShop' => $form->createView(),
+            'newShop'  => $shop->getId() === null,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/shop/delete/{id}", name="shop_delete")
+     *
+     * @param Shop $shop
+     * @param ObjectManager $objectManager
+     * @return RedirectResponse
+     */
+    public function delete(Shop $shop, ObjectManager $objectManager): RedirectResponse
+    {
+        $objectManager->remove($shop);
+        return $this->redirectToRoute('shops');
     }
 
     /**

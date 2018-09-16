@@ -3,13 +3,17 @@
 
 {% block content %}
 
-    <h1>Ajouter un commerce</h1>
+    {% if newShop %}
+        <h1>Ajouter un commerce</h1>
+    {% else %}
+        <h1>Editer le commerce</h1>
+    {% endif %}
 
     {{ form_start(formShop) }}
 
     {{ form_widget(formShop) }}
 
-    <button type="submit" class="btn btn-primary">Ajouter</button>
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
     {{ form_end(formShop) }}
 
 {% endblock %}

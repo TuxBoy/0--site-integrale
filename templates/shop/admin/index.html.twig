@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <h1>Tous les commerces</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for shop in shops %}
+        <tr>
+            <td>{{ shop.id }}</td>
+            <td><a href="{{ path('shops_edit', {'id': shop.id}) }}">{{ shop.name }}</a></td>
+            <td>{{ shop }}</td>
+            <td>
+                <a href="{{ path('shop_delete', {'id': shop.id}) }}" class="btn btn-danger">Supprimer</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
