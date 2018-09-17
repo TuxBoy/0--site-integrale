@@ -16,9 +16,9 @@ DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
 ...
 ```
 Remplacer les variables suivantes :
-* db_user : User de Mysql.
-* db_password : le mot de passe de votre user mysql.
-* db_name : le nom de la base de données créé en amond.
+* **db_user** : User de Mysql.
+* **db_password** : le mot de passe de votre user mysql.
+* **db_name** : le nom de la base de données créé en amond.
 
 Quand la configuration à la base de données est correctement configurer, il faut lancer les migrations (ça va créé les différentes tables/champs qu'il faut)
 
