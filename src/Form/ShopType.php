@@ -19,6 +19,7 @@ class ShopType extends AbstractType
             ->add('postal_code')
             ->add('city')
             ->add('description')
+            ->add('country')
             ->add('address')
             ->add('latitude', IntegerType::class, ['required' => false, 'attr' => ['disabled' => true]])
             ->add('longitude', IntegerType::class, ['required' => false, 'attr' => ['disabled' => true]])
